@@ -94,13 +94,21 @@ export default function ParticipantForm() {
   return (
     <div className="w-full max-w-md mx-auto perspective-1000">
       <div 
-        className="bg-white rounded-2xl p-6 md:p-8 shadow-xl border border-brand-surface-container"
+        className="bg-white rounded-2xl p-6 md:p-8 shadow-xl border border-brand-surface-container relative overflow-hidden"
         style={{
           transform: getTransform(),
           transition: flipState === 'normal' ? 'transform 0.25s ease-out' : 'transform 0.25s ease-in',
           transformStyle: 'preserve-3d'
         }}
       >
+        {isSubmitting && (
+          <div className="absolute inset-0 z-[100] bg-white/90 backdrop-blur-sm flex flex-col items-center justify-center">
+            <div className="w-12 h-12 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+            <h2 className="text-lg font-bold text-brand-primary font-heading uppercase tracking-wider">Registering...</h2>
+            <p className="text-brand-on-surface/70 mt-1 text-xs">Securing your spot on the pitch.</p>
+          </div>
+        )}
+
         {/* Progress Bar Header */}
         <div className="mb-6">
           <div className="flex justify-between text-xs font-bold text-brand-primary uppercase tracking-wider mb-2">

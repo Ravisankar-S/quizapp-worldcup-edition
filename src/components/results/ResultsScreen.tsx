@@ -102,13 +102,16 @@ export default function ResultsScreen() {
           </p>
 
           <div className="w-full space-y-3">
-            <button
-              onClick={handlePlayAgain}
-              className="w-full bg-brand-primary hover:bg-[#8e221f] text-white font-bold py-3.5 rounded-xl shadow-md transition-colors flex justify-center items-center gap-2 uppercase tracking-wide text-sm"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
-              PLAY AGAIN
-            </button>
+            <div className="flex flex-col items-center w-full">
+              <button
+                onClick={handlePlayAgain}
+                className="w-full bg-brand-primary hover:bg-[#8e221f] text-white font-bold py-3.5 rounded-xl shadow-md transition-colors flex justify-center items-center gap-2 uppercase tracking-wide text-sm"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
+                PLAY AGAIN
+              </button>
+              <span className="text-[11px] text-brand-on-surface/50 mt-1.5 uppercase font-bold tracking-wider">Try some other questions!</span>
+            </div>
             <button
               onClick={() => window.location.href = '/analysis'}
               className="w-full bg-white hover:bg-gray-50 text-brand-primary border-2 border-brand-primary font-bold py-3.5 rounded-xl transition-colors flex justify-center items-center gap-2 uppercase tracking-wide text-sm"
