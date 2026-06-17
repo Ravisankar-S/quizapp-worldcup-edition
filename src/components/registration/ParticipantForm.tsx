@@ -61,7 +61,6 @@ export default function ParticipantForm() {
         await submitParticipant(participantData); // Submit to Google Sheets
         
         console.log("Registration saved successfully");
-        alert("Registration saved successfully!");
         window.location.href = '/quiz'; // Proceed to quiz page
       } catch (err: any) {
         console.error(err);

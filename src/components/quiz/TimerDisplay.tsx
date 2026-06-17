@@ -13,10 +13,10 @@ export default function TimerDisplay({ secondsLeft }: TimerDisplayProps) {
   let textClass = "text-white";
   let pulseClass = "";
 
-  if (secondsLeft <= 30) {
+  if (secondsLeft <= 5) {
     bgClass = "bg-red-600";
     pulseClass = "animate-pulse";
-  } else if (secondsLeft <= 120) {
+  } else if (secondsLeft <= 10) {
     bgClass = "bg-orange-500";
   }
 

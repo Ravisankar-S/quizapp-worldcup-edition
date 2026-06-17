@@ -67,9 +67,10 @@ export default function ResultsScreen() {
 
   return (
     <div className="min-h-screen bg-brand-surface-container flex flex-col font-sans">
-      {/* Header */}
-      <header className="bg-brand-surface py-3 px-5 flex items-center justify-center border-b border-gray-200 shadow-sm relative z-10">
-        <h1 className="font-serif font-black text-xl text-brand-primary tracking-wider uppercase">
+      {/* Top Bar */}
+      <header className="bg-white py-4 px-6 flex items-center justify-center gap-3 border-b border-brand-primary/10 shadow-sm relative z-20">
+        <img src="/images/title-logo.png" alt="Logo" className="h-8 w-auto object-contain" />
+        <h1 className="font-heading font-black text-brand-primary text-xl tracking-wider uppercase">
           STUDENTS INDIA
         </h1>
       </header>
@@ -78,11 +79,8 @@ export default function ResultsScreen() {
         <div className="bg-white w-full rounded-[2rem] shadow-sm border border-brand-surface-container p-8 flex flex-col items-center text-center relative overflow-hidden">
           
           {/* Trophy Icon */}
-          <div className="w-24 h-24 bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-full flex items-center justify-center mb-6 shadow-lg border-4 border-white relative z-10">
-            <span className="text-4xl">🏆</span>
-            <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-brand-primary rounded-full border-2 border-white flex items-center justify-center text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
+          <div className="w-32 h-32 bg-[#ffe9e6] rounded-full flex items-center justify-center mb-6 shadow-lg border-4 border-white relative z-10 p-2 overflow-hidden">
+            <img src="/images/trophy.png" alt="Trophy" className="w-full h-full object-contain drop-shadow-md" />
           </div>
 
           <h2 className="text-2xl font-black text-brand-primary uppercase tracking-wide mb-6">
@@ -108,7 +106,7 @@ export default function ResultsScreen() {
               onClick={handlePlayAgain}
               className="w-full bg-brand-primary hover:bg-[#8e221f] text-white font-bold py-3.5 rounded-xl shadow-md transition-colors flex justify-center items-center gap-2 uppercase tracking-wide text-sm"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 2v6h6"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
               PLAY AGAIN
             </button>
             <button 
@@ -166,17 +164,6 @@ export default function ResultsScreen() {
         </div>
 
       </main>
-      
-      {/* Footer Branding */}
-      <footer className="mt-auto py-8 text-center bg-[#ffe9e6]">
-        <h4 className="font-serif font-black text-lg text-brand-primary tracking-widest uppercase mb-4">PITCH SIDE</h4>
-        <div className="flex justify-center gap-4 text-xs font-medium text-brand-primary underline mb-6">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Fan Support</a>
-        </div>
-        <p className="text-[10px] text-brand-primary/60 font-medium">© 2026 STUDENTS INDIA WORLD CUP CHALLENGE</p>
-      </footer>
     </div>
   );
 }

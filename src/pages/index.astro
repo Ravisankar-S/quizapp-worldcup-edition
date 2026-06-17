@@ -1,143 +1,184 @@
 ---
 import BaseLayout from "../components/layout/BaseLayout.astro";
-import {
-	EVENT_NAME,
-	EVENT_DATE,
-	ORGANIZER_NAME,
-	QUIZ_DURATION_SECONDS,
-} from "../data/eventConfig";
-
-const quizDurationMinutes = Math.floor(QUIZ_DURATION_SECONDS / 60);
+import { EVENT_NAME, EVENT_DATE, ORGANIZER_NAME } from "../data/eventConfig";
 ---
 
 <BaseLayout title={EVENT_NAME}>
-	<!-- Intro Video Overlay -->
-	<div
-		id="intro-container"
-		class="fixed inset-0 z-50 bg-black hidden items-center justify-center"
-	>
-		<video
-			id="intro-video"
-			class="w-full h-full object-cover md:object-contain"
-			playsinline
-			muted
-		>
-			<source src="/videos/intro_vid.webm" type="video/webm" />
-		</video>
-	</div>
+  <!-- Intro Video Overlay -->
+  <div
+    id="intro-container"
+    class="fixed inset-0 z-50 bg-black hidden items-center justify-center"
+  >
+    <video
+      id="intro-video"
+      class="w-full h-full object-cover md:object-contain"
+      playsinline
+      muted
+    >
+      <source src="/videos/intro_vid.webm" type="video/webm" />
+    </video>
+  </div>
 
-	  <div id="main-content" class="hidden opacity-0 transition-opacity duration-700 ease-in-out bg-brand-surface min-h-screen flex flex-col">
+  <div
+    id="main-content"
+    class="hidden opacity-0 transition-opacity duration-700 ease-in-out bg-[#ffe9e6] min-h-screen flex flex-col"
+  >
     {/* Top Bar */}
-    <header class="bg-white py-4 px-6 flex items-center justify-center border-b border-brand-surface-container shadow-sm relative z-20">
-      <div class="font-heading font-black text-brand-primary text-xl tracking-wider uppercase">
+    <header
+      class="bg-white py-4 px-6 flex items-center justify-center gap-3 border-b border-brand-primary/10 shadow-sm relative z-20"
+    >
+      <img
+        src="/images/title-logo.png"
+        alt="Logo"
+        class="h-8 w-auto object-contain"
+      />
+      <div
+        class="font-heading font-black text-brand-primary text-xl tracking-wider uppercase"
+      >
         STUDENTS INDIA
       </div>
     </header>
 
     <main class="flex-1 flex flex-col">
       {/* Hero Section */}
-      <div class="relative w-full overflow-hidden bg-brand-surface-container py-16 px-4 flex flex-col items-center justify-center min-h-[80vh]">
+      <div
+        class="relative w-full overflow-hidden bg-[#ffe9e6] pt-8 pb-16 md:py-16 px-4 flex flex-col items-center justify-center flex-1"
+      >
         {/* Three.js Canvas Container */}
-        <div id="threejs-container" class="absolute inset-0 w-full h-full z-0 pointer-events-none"></div>
-        
+        <div
+          id="threejs-container"
+          class="absolute inset-0 w-full h-full z-0 pointer-events-none"
+        >
+        </div>
+
         {/* Hero Content */}
-        <div class="relative z-10 flex flex-col items-center text-center max-w-lg mx-auto mt-4">
-          <div class="inline-block px-4 py-1.5 rounded-full bg-brand-surface border border-brand-primary/20 text-brand-primary text-xs font-bold tracking-widest mb-6 shadow-sm uppercase">
+        <div
+          class="relative z-10 flex flex-col items-center text-center max-w-lg mx-auto mt-4"
+        >
+          <img
+            src="/images/head_logo.png"
+            alt="Students India"
+            class="w-48 md:w-64 mb-6 mx-auto object-contain drop-shadow-md"
+          />
+          <div
+            class="inline-block px-4 py-1.5 rounded-full bg-white/50 border border-brand-primary/20 text-brand-primary text-xs font-bold tracking-widest mb-6 shadow-sm uppercase"
+          >
             SEASON 2026
           </div>
-          
-          <h1 class="text-5xl md:text-6xl font-black font-heading text-brand-on-surface uppercase leading-[1.05] mb-8" style="text-shadow: 2px 4px 15px rgba(173, 42, 38, 0.2);">
-            THE ULTIMATE<br/>
-            <span class="text-brand-primary">WORLD CUP</span><br/>
+
+          <h1
+            class="text-5xl md:text-6xl font-black font-heading text-brand-on-surface uppercase leading-[1.05] mb-8"
+            style="text-shadow: 2px 4px 15px rgba(173, 42, 38, 0.2);"
+          >
+            FOOTBALL<br />
+            <span class="text-brand-primary">WORLD CUP</span><br />
             <span class="text-brand-primary">QUIZ</span>
           </h1>
-          
-          <p class="text-brand-on-surface/80 font-medium text-sm md:text-base mb-10 max-w-sm">
-            Prove your football knowledge and win glory. Test your expertise against fans worldwide in high-stakes trivia challenges.
+
+          <p
+            class="text-brand-on-surface/80 font-medium text-sm md:text-base mb-10 max-w-sm"
+          >
+            Prove your football knowledge and win glory. Are you a true football
+            fan ?
           </p>
-          
-          <a href="/register" class="inline-flex items-center justify-center gap-2 bg-brand-primary hover:bg-[#8e221f] active:scale-95 transition-all duration-200 text-white font-bold text-sm md:text-base py-4 px-8 rounded-xl shadow-lg shadow-brand-primary/30 uppercase tracking-wide">
+
+          <a
+            href="/register"
+            class="inline-flex items-center justify-center gap-2 bg-brand-primary hover:bg-[#8e221f] active:scale-95 transition-all duration-200 text-white font-bold text-sm md:text-base py-4 px-8 rounded-xl shadow-lg shadow-brand-primary/30 uppercase tracking-wide"
+          >
             START CHALLENGE
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg
+            >
           </a>
         </div>
-      </div>
-      
-      {/* Placeholder for future cards */}
-      <div class="py-16 px-4 bg-brand-surface w-full flex-1">
-        {/* Cards will go here later */}
       </div>
     </main>
   </div>
 
-	<script is:inline>
-		const introContainer = document.getElementById("intro-container");
-		const mainContent = document.getElementById("main-content");
-		const video = document.getElementById("intro-video");
+  <script is:inline>
+    const introContainer = document.getElementById("intro-container");
+    const mainContent = document.getElementById("main-content");
+    const video = document.getElementById("intro-video");
 
-		const hasPlayed = sessionStorage.getItem("intro_played");
+    const hasPlayed = sessionStorage.getItem("intro_played");
 
-		function showMainContent() {
-			if (introContainer) {
-				introContainer.style.display = "none";
-			}
-			if (mainContent) {
-				mainContent.classList.remove("hidden");
-				// Force reflow to ensure the transition works
-				void mainContent.offsetWidth;
-				mainContent.classList.remove("opacity-0");
-				mainContent.classList.add("opacity-100");
-			}
-			// Stop video to save resources
-			if (video) {
-				video.pause();
-				video.currentTime = 0;
-			}
-		}
+    function showMainContent() {
+      if (introContainer) {
+        introContainer.style.display = "none";
+      }
+      if (mainContent) {
+        mainContent.classList.remove("hidden");
+        // Force reflow to ensure the transition works
+        void mainContent.offsetWidth;
+        mainContent.classList.remove("opacity-0");
+        mainContent.classList.add("opacity-100");
+      }
+      // Stop video to save resources
+      if (video) {
+        video.pause();
+        video.currentTime = 0;
+      }
+    }
 
-		if (hasPlayed) {
-			showMainContent();
-		} else {
-			if (introContainer) {
-				introContainer.classList.remove("hidden");
-				introContainer.style.display = "flex";
-			}
-			if (video) {
-				// Attempt to play the video. Browsers might block autoplay even if muted.
-				video.play().catch((err) => {
-					console.warn("Video autoplay blocked or failed:", err);
-					showMainContent(); // fallback
-				});
+    if (hasPlayed) {
+      showMainContent();
+    } else {
+      if (introContainer) {
+        introContainer.classList.remove("hidden");
+        introContainer.style.display = "flex";
+      }
+      if (video) {
+        // Attempt to play the video. Browsers might block autoplay even if muted.
+        video.play().catch((err) => {
+          console.warn("Video autoplay blocked or failed:", err);
+          showMainContent(); // fallback
+        });
 
-				video.addEventListener("ended", () => {
-					sessionStorage.setItem("intro_played", "true");
-					showMainContent();
-				});
+        video.addEventListener("ended", () => {
+          sessionStorage.setItem("intro_played", "true");
+          showMainContent();
+        });
 
-				video.addEventListener("error", () => {
-					sessionStorage.setItem("intro_played", "true");
-					showMainContent();
-				});
-			}
-		}
-	</script>
+        video.addEventListener("error", () => {
+          sessionStorage.setItem("intro_played", "true");
+          showMainContent();
+        });
+      }
+    }
+  </script>
 
   {/* Three.js Script */}
-  <script is:inline src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+  <script
+    is:inline
+    src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"
+  ></script>
   <script is:inline>
     // Wait until THREE is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      const container = document.getElementById('threejs-container');
-      if(!container || typeof THREE === 'undefined') return;
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("threejs-container");
+      if (!container || typeof THREE === "undefined") return;
 
       const devicePixelRatio = window.devicePixelRatio || 1;
-      
+
       let width = container.clientWidth || window.innerWidth;
       let height = container.clientHeight || window.innerHeight;
 
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+      });
 
       renderer.setSize(width, height);
       renderer.setPixelRatio(devicePixelRatio);
@@ -153,19 +194,19 @@ const quizDurationMinutes = Math.floor(QUIZ_DURATION_SECONDS / 60);
 
       // Football Geometry (Icosahedron + Wireframe to mimic stitching)
       const geometry = new THREE.IcosahedronGeometry(1, 1);
-      const material = new THREE.MeshPhongMaterial({ 
-          color: 0xffffff, 
-          flatShading: true,
-          shininess: 100
+      const material = new THREE.MeshPhongMaterial({
+        color: 0xffffff,
+        flatShading: true,
+        shininess: 100,
       });
       const football = new THREE.Mesh(geometry, material);
 
       // Black patches using wireframe or secondary geometry
       const patchGeometry = new THREE.IcosahedronGeometry(1.01, 1);
-      const patchMaterial = new THREE.MeshPhongMaterial({ 
-          color: 0x222222, 
-          wireframe: true, 
-          wireframeLinewidth: 2 
+      const patchMaterial = new THREE.MeshPhongMaterial({
+        color: 0x222222,
+        wireframe: true,
+        wireframeLinewidth: 2,
       });
       const patches = new THREE.Mesh(patchGeometry, patchMaterial);
       football.add(patches);
@@ -177,27 +218,27 @@ const quizDurationMinutes = Math.floor(QUIZ_DURATION_SECONDS / 60);
       // Animation path
       let angle = 0;
       function animate() {
-          requestAnimationFrame(animate);
-          
-          // Rotate ball
-          football.rotation.x += 0.02;
-          football.rotation.y += 0.03;
-          
-          // Swishing motion (figure 8 or elliptical)
-          angle += 0.01;
-          football.position.x = Math.sin(angle) * 3;
-          football.position.y = Math.cos(angle * 0.5) * 2;
-          football.position.z = Math.sin(angle * 0.2) * 1;
+        requestAnimationFrame(animate);
 
-          renderer.render(scene, camera);
+        // Rotate ball
+        football.rotation.x += 0.02;
+        football.rotation.y += 0.03;
+
+        // Swishing motion (figure 8 or elliptical)
+        angle += 0.01;
+        football.position.x = Math.sin(angle) * 3;
+        football.position.y = Math.cos(angle * 0.5) * 2;
+        football.position.z = Math.sin(angle * 0.2) * 1;
+
+        renderer.render(scene, camera);
       }
 
-      window.addEventListener('resize', () => {
-          width = container.clientWidth || window.innerWidth;
-          height = container.clientHeight || window.innerHeight;
-          camera.aspect = width / height;
-          camera.updateProjectionMatrix();
-          renderer.setSize(width, height);
+      window.addEventListener("resize", () => {
+        width = container.clientWidth || window.innerWidth;
+        height = container.clientHeight || window.innerHeight;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
       });
 
       animate();

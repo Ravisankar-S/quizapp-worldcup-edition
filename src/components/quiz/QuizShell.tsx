@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { QUESTIONS, type Question } from '../../data/questions';
-import { EVENT_NAME, QUIZ_DURATION_SECONDS } from '../../data/eventConfig';
+import { EVENT_NAME, QUESTION_TIMER_SECONDS, TOTAL_QUESTIONS_PER_QUIZ } from '../../data/eventConfig';
 import { 
   getParticipant, 
   saveResult, 
@@ -27,18 +27,25 @@ export default function QuizShell() {
   const [answers, setAnswers] = useState<AnsweredQuestion[]>([]);
   const [currentSelection, setCurrentSelection] = useState<number | null>(null);
   
-  const [secondsLeft, setSecondsLeft] = useState(QUIZ_DURATION_SECONDS);
+  const [secondsLeft, setSecondsLeft] = useState(QUESTION_TIMER_SECONDS);
   const [isQuizActive, setIsQuizActive] = useState(false);
 
   // Use refs for values that need to be accessed in event listeners without stale closures
   const isQuizActiveRef = useRef(false);
   const violationCountRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  
+  const currentSelectionRef = useRef(currentSelection);
+  const currentIndexRef = useRef(currentIndex);
+  const questionsRef = useRef(questions);
 
-  // Keep ref up to date
+  // Keep refs up to date
   useEffect(() => {
     isQuizActiveRef.current = isQuizActive;
-  }, [isQuizActive]);
+    currentSelectionRef.current = currentSelection;
+    currentIndexRef.current = currentIndex;
+    questionsRef.current = questions;
+  }, [isQuizActive, currentSelection, currentIndex, questions]);
 
   // Initialization & Reload Check
   useEffect(() => {
@@ -114,11 +121,11 @@ export default function QuizShell() {
         clearInterval(timerRef.current);
       }
     };
-  }, [isQuizActive]);
+  }, [isQuizActive, currentIndex]); // Restart interval on new question
 
   const handleStart = () => {
     setShowInstructions(false);
-    setQuestions(shuffleArray(QUESTIONS));
+    setQuestions(shuffleArray(QUESTIONS).slice(0, TOTAL_QUESTIONS_PER_QUIZ));
     setIsQuizActive(true);
     markQuizActive();
   };
@@ -138,8 +145,10 @@ export default function QuizShell() {
     window.location.replace('/');
   };
 
-  const recordAnswer = (selectedIndex: number | null) => {
-    const q = questions[currentIndex];
+  const recordAnswer = (selectedIndex: number | null, overrideIndex?: number) => {
+    const idx = overrideIndex !== undefined ? overrideIndex : currentIndex;
+    const q = questionsRef.current[idx];
+    if (!q) return;
     setAnswers(prev => [...prev, {
       questionId: q.id,
       selectedIndex
@@ -150,6 +159,7 @@ export default function QuizShell() {
     if (currentIndex < questions.length - 1) {
       setCurrentIndex(prev => prev + 1);
       setCurrentSelection(null);
+      setSecondsLeft(QUESTION_TIMER_SECONDS);
     } else {
       finishQuiz();
     }
@@ -167,10 +177,17 @@ export default function QuizShell() {
   };
 
   const handleTimeUp = () => {
-    setIsQuizActive(false);
+    const idx = currentIndexRef.current;
     // Treat the current unsubmitted selection as submitted if it exists, otherwise skipped
-    recordAnswer(currentSelection);
-    finishQuiz(true);
+    recordAnswer(currentSelectionRef.current, idx);
+    
+    if (idx < questionsRef.current.length - 1) {
+      setCurrentIndex(prev => prev + 1);
+      setCurrentSelection(null);
+      setSecondsLeft(QUESTION_TIMER_SECONDS);
+    } else {
+      finishQuiz(true);
+    }
   };
 
   const finishQuiz = (fromTimeout = false) => {
@@ -227,9 +244,12 @@ export default function QuizShell() {
 
       {/* Header */}
       <header className="bg-brand-surface py-3 px-5 flex items-center justify-between border-b border-gray-200 shadow-sm relative z-10">
-        <h1 className="font-serif font-black text-xl text-brand-primary tracking-wider uppercase">
-          STUDENTS INDIA
-        </h1>
+        <div className="flex items-center gap-3">
+          <img src="/images/title-logo.png" alt="Logo" className="h-7 w-auto object-contain" />
+          <h1 className="font-serif font-black text-xl text-brand-primary tracking-wider uppercase">
+            STUDENTS INDIA
+          </h1>
+        </div>
         {isQuizActive && <TimerDisplay secondsLeft={secondsLeft} />}
       </header>
 
