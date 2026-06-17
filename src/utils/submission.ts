@@ -4,6 +4,8 @@ export interface ParticipantData {
   district: string;
   class: string;
   team: string;
+  score?: number;
+  action?: 'register' | 'update_score';
 }
 
 export async function submitParticipant(

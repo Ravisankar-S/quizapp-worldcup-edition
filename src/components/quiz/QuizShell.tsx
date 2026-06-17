@@ -8,6 +8,7 @@ import {
   type AnsweredQuestion,
   type QuizResultData
 } from '../../utils/sessionState';
+import { submitParticipant } from '../../utils/submission';
 import { markQuizActive, markQuizComplete, wasQuizActiveBeforeReload } from '../../utils/antiCheat';
 import { shuffleArray } from '../../utils/shuffle';
 
@@ -29,6 +30,7 @@ export default function QuizShell() {
   
   const [secondsLeft, setSecondsLeft] = useState(QUESTION_TIMER_SECONDS);
   const [isQuizActive, setIsQuizActive] = useState(false);
+  const [isSubmittingScore, setIsSubmittingScore] = useState(false);
 
   // Use refs for values that need to be accessed in event listeners without stale closures
   const isQuizActiveRef = useRef(false);
@@ -38,6 +40,7 @@ export default function QuizShell() {
   const currentSelectionRef = useRef(currentSelection);
   const currentIndexRef = useRef(currentIndex);
   const questionsRef = useRef(questions);
+  const hasSubmittedRef = useRef(false);
 
   // Keep refs up to date
   useEffect(() => {
@@ -228,7 +231,37 @@ export default function QuizShell() {
       };
 
       saveResult(resultData);
-      window.location.replace('/result');
+
+      if (!hasSubmittedRef.current) {
+        hasSubmittedRef.current = true;
+        const participant = getParticipant();
+        if (participant) {
+          const hasAlreadySubmittedScore = typeof sessionStorage !== 'undefined' && sessionStorage.getItem("score_submitted") === "true";
+          
+          if (!hasAlreadySubmittedScore) {
+            if (typeof sessionStorage !== 'undefined') {
+              sessionStorage.setItem("score_submitted", "true");
+            }
+            
+            // Show loader
+            setIsSubmittingScore(true);
+
+            // Submit the final score before redirecting
+            submitParticipant({ ...participant, team: participant.team || '', score, action: 'update_score' }).then(() => {
+              window.location.replace('/result');
+            }).catch(err => {
+              console.error("Score submission failed:", err);
+              window.location.replace('/result');
+            });
+          } else {
+            // Already submitted the first attempt, just go to results
+            window.location.replace('/result');
+          }
+        } else {
+          window.location.replace('/result');
+        }
+      }
+
       return finalAnswers;
     });
   };
@@ -238,7 +271,15 @@ export default function QuizShell() {
   const currentQuestion = questions[currentIndex];
 
   return (
-    <div className="min-h-screen bg-brand-surface-container flex flex-col font-sans">
+    <div className="min-h-screen bg-brand-surface-container flex flex-col font-sans relative">
+      {isSubmittingScore && (
+        <div className="absolute inset-0 z-[100] bg-brand-surface/80 backdrop-blur-sm flex flex-col items-center justify-center">
+          <div className="w-16 h-16 border-4 border-brand-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+          <h2 className="text-xl font-bold text-brand-primary font-heading uppercase tracking-wider">Calculating Final Score...</h2>
+          <p className="text-brand-on-surface/70 mt-2 text-sm">Please wait while we secure your results.</p>
+        </div>
+      )}
+
       {showInstructions && <InstructionsModal onStart={handleStart} />}
       {showCheatWarning && <CheatWarningModal onDismiss={() => setShowCheatWarning(false)} />}
 

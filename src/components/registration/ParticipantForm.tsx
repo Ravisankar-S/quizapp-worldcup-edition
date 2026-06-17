@@ -58,7 +58,10 @@ export default function ParticipantForm() {
 
       try {
         saveParticipant(participantData); // Save to sessionStorage FIRST
-        await submitParticipant(participantData); // Submit to Google Sheets
+        if (typeof sessionStorage !== 'undefined') {
+          sessionStorage.removeItem("score_submitted"); // Reset for new registrations
+        }
+        await submitParticipant({ ...participantData, action: 'register' }); // Submit to Google Sheets
         
         console.log("Registration saved successfully");
         window.location.href = '/quiz'; // Proceed to quiz page
@@ -246,14 +249,26 @@ export default function ParticipantForm() {
           )}
         </div>
 
-        <button 
-          onClick={handleNext}
-          disabled={isSubmitting}
-          className="w-full bg-brand-primary hover:bg-[#8e221f] text-white font-bold py-3.5 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2 uppercase tracking-wide text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isSubmitting ? "SUBMITTING..." : step === 3 ? "SUBMIT & START QUIZ" : "CONTINUE TO KICK-OFF"}
-          {!isSubmitting && <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>}
-        </button>
+        <div className="flex gap-3">
+          {step > 1 && (
+            <button 
+              onClick={() => triggerFlip(step - 1)}
+              disabled={isSubmitting}
+              className="w-1/4 bg-white border border-brand-surface-container hover:bg-gray-50 text-brand-on-surface font-bold py-3.5 rounded-lg shadow-sm transition-colors flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
+              title="Go Back"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+          )}
+          <button 
+            onClick={handleNext}
+            disabled={isSubmitting}
+            className="flex-1 bg-brand-primary hover:bg-[#8e221f] text-white font-bold py-3.5 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2 uppercase tracking-wide text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? "SUBMITTING..." : step === 3 ? "SUBMIT & START QUIZ" : "CONTINUE TO KICK-OFF"}
+            {!isSubmitting && <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>}
+          </button>
+        </div>
         {errors.submit && <p className="text-red-500 text-xs mt-3 text-center">{errors.submit}</p>}
 
         <div className="mt-6 pt-4 border-t border-brand-surface-container flex justify-center items-center gap-2 text-xs text-brand-on-surface/60">
