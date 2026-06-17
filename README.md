@@ -1,4 +1,4 @@
-# Hannah's Students India 2026 World Cup Quiz
+# <img width="32" height="32" alt="title-logo" src="https://github.com/user-attachments/assets/e7f89167-e56f-4ed5-89e8-f4ff63634413" /> Hannah's Students India 2026 World Cup Quiz
 
 <div align="center">
   <p align="center">
@@ -55,3 +55,6 @@ The **Students India 2026 World Cup Quiz** is an interactive, high-performance w
 
 Made for **Hannah's Students India**.  
 Check out their official website at: [https://studentsindiamagazine.com/](https://studentsindiamagazine.com/)
+
+
+<img width="428" height="107" alt="main-logo" src="https://github.com/user-attachments/assets/d6524e15-4147-4ad8-a304-890d6805bb85" />
