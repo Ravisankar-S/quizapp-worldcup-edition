@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../components/layout/BaseLayout.astro";
+import { EVENT_NAME } from "../data/eventConfig";
+---
+
+<BaseLayout title={`Your Results | ${EVENT_NAME}`}>
+  <main class="min-h-screen py-8 px-4 md:py-16 md:px-8 flex flex-col justify-center">
+    <div class="w-full max-w-2xl mx-auto">
+      <div class="bg-brand-surface rounded-2xl p-6 md:p-12 shadow-xl border border-white/5 text-center text-brand-light/60">
+        <p>ResultsScreen component will go here.</p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
