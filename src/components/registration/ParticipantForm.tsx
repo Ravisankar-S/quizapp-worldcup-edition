@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DISTRICTS, CLASSES, TEAMS } from '../../data/registrationData';
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill";
 import { submitParticipant } from '../../utils/submission';
+import { saveParticipant } from '../../utils/sessionState';
 
 export default function ParticipantForm() {
   useEffect(() => {
@@ -47,14 +48,18 @@ export default function ParticipantForm() {
       triggerFlip(step + 1);
     } else {
       setIsSubmitting(true);
+      const participantData = {
+        name: formData.fullName,
+        phone: formData.phone,
+        district: formData.district,
+        class: formData.studentClass,
+        team: formData.team
+      };
+
       try {
-        await submitParticipant({
-          name: formData.fullName,
-          phone: formData.phone,
-          district: formData.district,
-          class: formData.studentClass,
-          team: formData.team
-        });
+        saveParticipant(participantData); // Save to sessionStorage FIRST
+        await submitParticipant(participantData); // Submit to Google Sheets
+        
         console.log("Registration saved successfully");
         alert("Registration saved successfully!");
         window.location.href = '/quiz'; // Proceed to quiz page
