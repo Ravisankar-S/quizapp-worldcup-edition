@@ -7,14 +7,15 @@ export default {
     extend: {
       colors: {
         brand: {
-          primary: "#6C63FF",
-          secondary: "#FF6584",
-          accent: "#43E97B",
-          warning: "#F7971E",
-          danger: "#FF4D4F",
-          bg: "#0F0E17",
-          surface: "#1A1A2E",
-          light: "#F5F5F5",
+          surface: '#fff8f6',
+          'surface-container': '#ffe9e6',
+          'surface-container-highest': '#ffdad4',
+          primary: '#ad2a26',
+          secondary: '#d93f2b',
+          tertiary: '#007cff',
+          neutral: '#8f706b',
+          'on-surface': '#2b1613',
+          'on-primary': '#ffffff',
         }
       },
       fontFamily: {

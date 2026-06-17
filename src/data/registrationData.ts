@@ -1,0 +1,61 @@
+export const DISTRICTS = [
+  "Thiruvananthapuram", "Kollam", "Pathanamthitta", "Alappuzha", 
+  "Kottayam", "Idukki", "Ernakulam", "Thrissur", "Palakkad", 
+  "Malappuram", "Kozhikode", "Wayanad", "Kannur", "Kasaragod"
+];
+
+export const CLASSES = [
+  "Class 1", "Class 2", "Class 3", "Class 4", "Class 5", "Class 6",
+  "Class 7", "Class 8", "Class 9", "Class 10", "Class 11", "Class 12"
+];
+
+export const TEAMS = [
+  { name: "Argentina", emoji: "🇦🇷" },
+  { name: "Australia", emoji: "🇦🇺" },
+  { name: "Austria", emoji: "🇦🇹" },
+  { name: "Algeria", emoji: "🇩🇿" },
+  { name: "Belgium", emoji: "🇧🇪" },
+  { name: "Bosnia and Herzegovina", emoji: "🇧🇦" },
+  { name: "Brazil", emoji: "🇧🇷" },
+  { name: "Cabo Verde", emoji: "🇨🇻" },
+  { name: "Canada", emoji: "🇨🇦" },
+  { name: "Colombia", emoji: "🇨🇴" },
+  { name: "Congo DR", emoji: "🇨🇩" },
+  { name: "Côte d'Ivoire", emoji: "🇨🇮" },
+  { name: "Croatia", emoji: "🇭🇷" },
+  { name: "Curaçao", emoji: "🇨🇼" },
+  { name: "Czechia", emoji: "🇨🇿" },
+  { name: "Ecuador", emoji: "🇪🇨" },
+  { name: "Egypt", emoji: "🇪🇬" },
+  { name: "England", emoji: "🏴󠁧󠁢󠁥󠁮󠁧󠁿" },
+  { name: "France", emoji: "🇫🇷" },
+  { name: "Germany", emoji: "🇩🇪" },
+  { name: "Ghana", emoji: "🇬🇭" },
+  { name: "Haiti", emoji: "🇭🇹" },
+  { name: "IR Iran", emoji: "🇮🇷" },
+  { name: "Iraq", emoji: "🇮🇶" },
+  { name: "Japan", emoji: "🇯🇵" },
+  { name: "Jordan", emoji: "🇯🇴" },
+  { name: "Korea Republic", emoji: "🇰🇷" },
+  { name: "Mexico", emoji: "🇲🇽" },
+  { name: "Morocco", emoji: "🇲🇦" },
+  { name: "Netherlands", emoji: "🇳🇱" },
+  { name: "New Zealand", emoji: "🇳🇿" },
+  { name: "Norway", emoji: "🇳🇴" },
+  { name: "Panama", emoji: "🇵🇦" },
+  { name: "Paraguay", emoji: "🇵🇾" },
+  { name: "Portugal", emoji: "🇵🇹" },
+  { name: "Qatar", emoji: "🇶🇦" },
+  { name: "Saudi Arabia", emoji: "🇸🇦" },
+  { name: "Scotland", emoji: "🏴󠁧󠁢󠁳󠁣󠁴󠁿" },
+  { name: "Senegal", emoji: "🇸🇳" },
+  { name: "South Africa", emoji: "🇿🇦" },
+  { name: "Spain", emoji: "🇪🇸" },
+  { name: "Sweden", emoji: "🇸🇪" },
+  { name: "Switzerland", emoji: "🇨🇭" },
+  { name: "Tunisia", emoji: "🇹🇳" },
+  { name: "Türkiye", emoji: "🇹🇷" },
+  { name: "Uruguay", emoji: "🇺🇾" },
+  { name: "USA", emoji: "🇺🇸" },
+  { name: "Uzbekistan", emoji: "🇺🇿" }
+].sort((a, b) => a.name.localeCompare(b.name));

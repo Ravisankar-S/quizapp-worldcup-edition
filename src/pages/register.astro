@@ -1,19 +1,20 @@
 ---
 import BaseLayout from "../components/layout/BaseLayout.astro";
 import { EVENT_NAME } from "../data/eventConfig";
+import ParticipantForm from "../components/registration/ParticipantForm";
 ---
 
 <BaseLayout title={`Register | ${EVENT_NAME}`}>
-  <main class="min-h-screen py-8 px-4 md:py-16 md:px-8 flex items-center justify-center">
-    <div class="w-full max-w-md mx-auto">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl font-heading font-bold text-white mb-2">Register to Begin</h1>
-        <p class="text-brand-light/80 text-sm">Enter your details below to start the quiz.</p>
+  <div class="min-h-screen bg-brand-surface-container flex flex-col">
+    {/* Top Bar */}
+    <header class="bg-white py-4 px-6 flex items-center justify-center border-b border-brand-surface-container shadow-sm relative z-20">
+      <div class="font-heading font-black text-brand-primary text-xl tracking-wider uppercase">
+        STUDENTS INDIA
       </div>
-      
-      <div class="bg-brand-surface rounded-2xl p-6 shadow-xl border border-white/5 text-center py-12 text-brand-light/60">
-        <p>ParticipantForm component will go here.</p>
-      </div>
-    </div>
-  </main>
+    </header>
+
+    <main class="flex-1 flex flex-col items-center justify-center py-8 px-4">
+      <ParticipantForm client:load />
+    </main>
+  </div>
 </BaseLayout>

@@ -26,140 +26,49 @@ const quizDurationMinutes = Math.floor(QUIZ_DURATION_SECONDS / 60);
 		</video>
 	</div>
 
-	<div
-		id="main-content"
-		class="hidden opacity-0 transition-opacity duration-700 ease-in-out"
-	>
-		<main
-			class="min-h-screen py-8 px-4 md:py-16 md:px-8 flex flex-col justify-center"
-		>
-			<div class="max-w-2xl mx-auto space-y-8 w-full">
-				{/* Header Section */}
-				<div class="text-center space-y-4">
-					<div
-						class="inline-block px-4 py-1.5 rounded-full bg-brand-surface border border-brand-primary/30 text-brand-primary text-sm font-medium mb-2"
-					>
-						{ORGANIZER_NAME} presents
-					</div>
-					<h1
-						class="text-3xl md:text-5xl font-heading font-bold text-white leading-tight"
-					>
-						{EVENT_NAME}
-					</h1>
-					<p class="text-brand-light/80 text-base md:text-lg">
-						Join us for an exciting, fast-paced quiz! Test your
-						knowledge, compete with peers, and earn your
-						participation certificate.
-					</p>
-					<p class="text-brand-primary font-medium">
-						📅 {EVENT_DATE}
-					</p>
-				</div>
+	  <div id="main-content" class="hidden opacity-0 transition-opacity duration-700 ease-in-out bg-brand-surface min-h-screen flex flex-col">
+    {/* Top Bar */}
+    <header class="bg-white py-4 px-6 flex items-center justify-center border-b border-brand-surface-container shadow-sm relative z-20">
+      <div class="font-heading font-black text-brand-primary text-xl tracking-wider uppercase">
+        STUDENTS INDIA
+      </div>
+    </header>
 
-				{/* Rules Card */}
-				<div
-					class="bg-brand-surface rounded-2xl p-6 md:p-8 shadow-xl border border-white/5"
-				>
-					<h2
-						class="text-2xl font-heading font-semibold text-white mb-6"
-					>
-						Quiz Rules
-					</h2>
-
-					<ul
-						class="space-y-4 text-sm md:text-base text-brand-light/90"
-					>
-						<li class="flex items-start gap-3">
-							<span
-								class="text-brand-primary text-xl leading-none"
-								>•</span
-							>
-							<span
-								>Questions are shown <strong
-									>one at a time</strong
-								>. You cannot go back to previous questions.</span
-							>
-						</li>
-						<li class="flex items-start gap-3">
-							<span
-								class="text-brand-primary text-xl leading-none"
-								>•</span
-							>
-							<span
-								>You may <strong>skip</strong> a question if you are
-								unsure.</span
-							>
-						</li>
-						<li class="flex items-start gap-3">
-							<span
-								class="text-brand-primary text-xl leading-none"
-								>•</span
-							>
-							<span
-								>Each correct answer is worth <strong
-									>2 points</strong
-								>. There is no negative marking for wrong or
-								skipped answers.</span
-							>
-						</li>
-					</ul>
-
-					<div class="mt-8 space-y-4">
-						<div
-							class="bg-brand-warning/10 border border-brand-warning/20 rounded-xl p-4 flex gap-3"
-						>
-							<div class="text-brand-warning text-xl shrink-0">
-								⏳
-							</div>
-							<div>
-								<h3
-									class="font-semibold text-brand-warning mb-1"
-								>
-									Timed Event
-								</h3>
-								<p class="text-sm text-brand-light/80">
-									You have exactly <strong
-										>{quizDurationMinutes} minutes</strong
-									> to complete the quiz. It will auto-submit when
-									time runs out.
-								</p>
-							</div>
-						</div>
-
-						<div
-							class="bg-brand-danger/10 border border-brand-danger/20 rounded-xl p-4 flex gap-3"
-						>
-							<div class="text-brand-danger text-xl shrink-0">
-								⚠️
-							</div>
-							<div>
-								<h3
-									class="font-semibold text-brand-danger mb-1"
-								>
-									Strict Anti-Cheat
-								</h3>
-								<p class="text-sm text-brand-light/80">
-									Do not switch tabs, minimize your browser,
-									or reload the page once started. Doing so
-									may end your attempt immediately.
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				{/* Action Button */}
-				<div class="pt-4">
-					<a
-						href="/register"
-						class="block w-full text-center bg-brand-primary hover:bg-brand-primary/90 active:scale-95 transition-all duration-200 text-white font-semibold text-lg py-4 px-6 rounded-xl shadow-lg shadow-brand-primary/20"
-					>
-						Register & Start
-					</a>
-				</div>
-			</div>
-		</main>
-	</div>
+    <main class="flex-1 flex flex-col">
+      {/* Hero Section */}
+      <div class="relative w-full overflow-hidden bg-brand-surface-container py-16 px-4 flex flex-col items-center justify-center min-h-[80vh]">
+        {/* Three.js Canvas Container */}
+        <div id="threejs-container" class="absolute inset-0 w-full h-full z-0 pointer-events-none"></div>
+        
+        {/* Hero Content */}
+        <div class="relative z-10 flex flex-col items-center text-center max-w-lg mx-auto mt-4">
+          <div class="inline-block px-4 py-1.5 rounded-full bg-brand-surface border border-brand-primary/20 text-brand-primary text-xs font-bold tracking-widest mb-6 shadow-sm uppercase">
+            SEASON 2026
+          </div>
+          
+          <h1 class="text-5xl md:text-6xl font-black font-heading text-brand-on-surface uppercase leading-[1.05] mb-8" style="text-shadow: 2px 4px 15px rgba(173, 42, 38, 0.2);">
+            THE ULTIMATE<br/>
+            <span class="text-brand-primary">WORLD CUP</span><br/>
+            <span class="text-brand-primary">QUIZ</span>
+          </h1>
+          
+          <p class="text-brand-on-surface/80 font-medium text-sm md:text-base mb-10 max-w-sm">
+            Prove your football knowledge and win glory. Test your expertise against fans worldwide in high-stakes trivia challenges.
+          </p>
+          
+          <a href="/register" class="inline-flex items-center justify-center gap-2 bg-brand-primary hover:bg-[#8e221f] active:scale-95 transition-all duration-200 text-white font-bold text-sm md:text-base py-4 px-8 rounded-xl shadow-lg shadow-brand-primary/30 uppercase tracking-wide">
+            START CHALLENGE
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+      
+      {/* Placeholder for future cards */}
+      <div class="py-16 px-4 bg-brand-surface w-full flex-1">
+        {/* Cards will go here later */}
+      </div>
+    </main>
+  </div>
 
 	<script is:inline>
 		const introContainer = document.getElementById("intro-container");
@@ -212,4 +121,86 @@ const quizDurationMinutes = Math.floor(QUIZ_DURATION_SECONDS / 60);
 			}
 		}
 	</script>
+
+  {/* Three.js Script */}
+  <script is:inline src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+  <script is:inline>
+    // Wait until THREE is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('threejs-container');
+      if(!container || typeof THREE === 'undefined') return;
+
+      const devicePixelRatio = window.devicePixelRatio || 1;
+      
+      let width = container.clientWidth || window.innerWidth;
+      let height = container.clientHeight || window.innerHeight;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(devicePixelRatio);
+      container.appendChild(renderer.domElement);
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      scene.add(ambientLight);
+
+      const pointLight = new THREE.PointLight(0xffffff, 1);
+      pointLight.position.set(5, 5, 5);
+      scene.add(pointLight);
+
+      // Football Geometry (Icosahedron + Wireframe to mimic stitching)
+      const geometry = new THREE.IcosahedronGeometry(1, 1);
+      const material = new THREE.MeshPhongMaterial({ 
+          color: 0xffffff, 
+          flatShading: true,
+          shininess: 100
+      });
+      const football = new THREE.Mesh(geometry, material);
+
+      // Black patches using wireframe or secondary geometry
+      const patchGeometry = new THREE.IcosahedronGeometry(1.01, 1);
+      const patchMaterial = new THREE.MeshPhongMaterial({ 
+          color: 0x222222, 
+          wireframe: true, 
+          wireframeLinewidth: 2 
+      });
+      const patches = new THREE.Mesh(patchGeometry, patchMaterial);
+      football.add(patches);
+
+      scene.add(football);
+
+      camera.position.z = 5;
+
+      // Animation path
+      let angle = 0;
+      function animate() {
+          requestAnimationFrame(animate);
+          
+          // Rotate ball
+          football.rotation.x += 0.02;
+          football.rotation.y += 0.03;
+          
+          // Swishing motion (figure 8 or elliptical)
+          angle += 0.01;
+          football.position.x = Math.sin(angle) * 3;
+          football.position.y = Math.cos(angle * 0.5) * 2;
+          football.position.z = Math.sin(angle * 0.2) * 1;
+
+          renderer.render(scene, camera);
+      }
+
+      window.addEventListener('resize', () => {
+          width = container.clientWidth || window.innerWidth;
+          height = container.clientHeight || window.innerHeight;
+          camera.aspect = width / height;
+          camera.updateProjectionMatrix();
+          renderer.setSize(width, height);
+      });
+
+      animate();
+    });
+  </script>
 </BaseLayout>
