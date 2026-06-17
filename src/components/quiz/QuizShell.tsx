@@ -243,7 +243,7 @@ export default function QuizShell() {
       {showCheatWarning && <CheatWarningModal onDismiss={() => setShowCheatWarning(false)} />}
 
       {/* Header */}
-      <header className="bg-brand-surface py-3 px-5 flex items-center justify-between border-b border-gray-200 shadow-sm relative z-10">
+      <header className="sticky top-0 z-50 bg-brand-surface py-3 px-5 flex items-center justify-between border-b border-gray-200 shadow-sm">
         <div className="flex items-center gap-3">
           <img src="/images/title-logo.png" alt="Logo" className="h-7 w-auto object-contain" />
           <h1 className="font-serif font-black text-xl text-brand-primary tracking-wider uppercase">
