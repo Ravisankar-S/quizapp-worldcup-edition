@@ -33,7 +33,7 @@ export default function QuizShell() {
   // Use refs for values that need to be accessed in event listeners without stale closures
   const isQuizActiveRef = useRef(false);
   const violationCountRef = useRef(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Keep ref up to date
   useEffect(() => {
@@ -95,19 +95,24 @@ export default function QuizShell() {
       timerRef.current = setInterval(() => {
         setSecondsLeft((prev) => {
           if (prev <= 1) {
-            clearInterval(timerRef.current!);
-            handleTimeUp();
+            if (timerRef.current !== null) {
+              clearInterval(timerRef.current);
+            }
+            // Defer side effect outside of the React state updater
+            setTimeout(handleTimeUp, 0);
             return 0;
           }
           return prev - 1;
         });
       }, 1000);
-    } else if (!isQuizActive && timerRef.current) {
+    } else if (!isQuizActive && timerRef.current !== null) {
       clearInterval(timerRef.current);
     }
 
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current !== null) {
+        clearInterval(timerRef.current);
+      }
     };
   }, [isQuizActive]);
 
