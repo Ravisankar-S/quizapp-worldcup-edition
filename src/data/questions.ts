@@ -312,9 +312,9 @@ export const QUESTIONS: Question[] = [
     "options": [
       "ബ്രസീല്‍",
       "ഫ്രാന്‍സ്",
-      "സ്‌പെയ്ന്‍"
+      "അർജൻ്റീന"
     ],
-    "correctAnswerIndex": 1
+    "correctAnswerIndex": 2
   },
   {
     "id": 32,

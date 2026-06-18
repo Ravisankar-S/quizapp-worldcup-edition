@@ -62,7 +62,7 @@ export default function ParticipantForm() {
           sessionStorage.removeItem("score_submitted"); // Reset for new registrations
         }
         await submitParticipant({ ...participantData, action: 'register' }); // Submit to Google Sheets
-        
+
         console.log("Registration saved successfully");
         window.location.href = '/quiz'; // Proceed to quiz page
       } catch (err: any) {
@@ -93,7 +93,7 @@ export default function ParticipantForm() {
 
   return (
     <div className="w-full max-w-md mx-auto perspective-1000">
-      <div 
+      <div
         className="bg-white rounded-2xl p-6 md:p-8 shadow-xl border border-brand-surface-container relative overflow-hidden"
         style={{
           transform: getTransform(),
@@ -116,7 +116,7 @@ export default function ParticipantForm() {
             <span>{step === 1 ? 'Player Details' : step === 2 ? 'Location' : 'Team Selection'}</span>
           </div>
           <div className="w-full h-1.5 bg-brand-surface-container rounded-full overflow-hidden">
-            <div 
+            <div
               className="h-full bg-brand-primary transition-all duration-500 ease-out"
               style={{ width: `${(step / 3) * 100}%` }}
             ></div>
@@ -136,14 +136,14 @@ export default function ParticipantForm() {
                 <label className="block text-xs font-bold text-brand-on-surface uppercase mb-1.5">Full Name</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-neutral">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
                   </div>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     placeholder="e.g. Lionel Messi"
                     className={`w-full pl-10 pr-3 py-2.5 bg-brand-surface border ${errors.fullName ? 'border-red-500' : 'border-brand-surface-container'} rounded-lg text-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors`}
                     value={formData.fullName}
-                    onChange={e => setFormData({...formData, fullName: e.target.value})}
+                    onChange={e => setFormData({ ...formData, fullName: e.target.value })}
                   />
                 </div>
                 {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
@@ -153,14 +153,14 @@ export default function ParticipantForm() {
                 <label className="block text-xs font-bold text-brand-on-surface uppercase mb-1.5">Phone Number</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-neutral">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" /><path d="M12 18h.01" /></svg>
                   </div>
-                  <input 
-                    type="tel" 
+                  <input
+                    type="tel"
                     placeholder="10-digit number"
                     className={`w-full pl-10 pr-3 py-2.5 bg-brand-surface border ${errors.phone ? 'border-red-500' : 'border-brand-surface-container'} rounded-lg text-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors`}
                     value={formData.phone}
-                    onChange={e => setFormData({...formData, phone: e.target.value})}
+                    onChange={e => setFormData({ ...formData, phone: e.target.value })}
                   />
                 </div>
                 {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
@@ -174,12 +174,12 @@ export default function ParticipantForm() {
                 <label className="block text-xs font-bold text-brand-on-surface uppercase mb-1.5">District</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-neutral">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
                   </div>
-                  <select 
+                  <select
                     className={`w-full pl-10 pr-8 py-2.5 bg-brand-surface border ${errors.district ? 'border-red-500' : 'border-brand-surface-container'} rounded-lg text-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors appearance-none`}
                     value={formData.district}
-                    onChange={e => setFormData({...formData, district: e.target.value})}
+                    onChange={e => setFormData({ ...formData, district: e.target.value })}
                   >
                     <option value="">Select a district</option>
                     {DISTRICTS.map(d => <option key={d} value={d}>{d}</option>)}
@@ -195,12 +195,12 @@ export default function ParticipantForm() {
                 <label className="block text-xs font-bold text-brand-on-surface uppercase mb-1.5">Class</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-neutral">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg>
                   </div>
-                  <select 
+                  <select
                     className={`w-full pl-10 pr-8 py-2.5 bg-brand-surface border ${errors.studentClass ? 'border-red-500' : 'border-brand-surface-container'} rounded-lg text-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors appearance-none`}
                     value={formData.studentClass}
-                    onChange={e => setFormData({...formData, studentClass: e.target.value})}
+                    onChange={e => setFormData({ ...formData, studentClass: e.target.value })}
                   >
                     <option value="">Select your class</option>
                     {CLASSES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -217,7 +217,7 @@ export default function ParticipantForm() {
           {step === 3 && (
             <>
               <div className="relative">
-                <label className="block text-xs font-bold text-brand-on-surface uppercase mb-1.5">Favorite World Cup Team</label>
+                <label className="block text-xs font-bold text-brand-on-surface uppercase mb-1.5">Favourite World Cup Team</label>
                 <div className="relative">
                   <button
                     type="button"
@@ -225,21 +225,21 @@ export default function ParticipantForm() {
                     className={`w-full pl-10 pr-8 py-2.5 bg-brand-surface border ${errors.team ? 'border-red-500' : 'border-brand-surface-container'} rounded-lg text-sm text-left focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-colors flex items-center justify-between`}
                   >
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-brand-neutral">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" x2="4" y1="22" y2="15" /></svg>
                     </div>
                     <span className={formData.team ? 'text-brand-on-surface' : 'text-brand-on-surface/50'} style={{ fontFamily: '"Twemoji Country Flags", "Segoe UI Emoji", "Apple Color Emoji", sans-serif' }}>
                       {formData.team ? TEAMS.find(t => t.name === formData.team)?.emoji + ' ' + formData.team : 'Select a nation'}
                     </span>
                     <svg className={`w-4 h-4 text-brand-neutral pointer-events-none transition-transform duration-200 ${isTeamDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                   </button>
-                  
+
                   {isTeamDropdownOpen && (
                     <div className="absolute z-50 w-full mt-1 bg-white border border-brand-surface-container rounded-lg shadow-lg max-h-60 overflow-y-auto">
                       {TEAMS.map(t => (
-                        <div 
+                        <div
                           key={t.name}
                           onClick={() => {
-                            setFormData({...formData, team: t.name});
+                            setFormData({ ...formData, team: t.name });
                             setIsTeamDropdownOpen(false);
                           }}
                           className="px-4 py-2 hover:bg-brand-surface-container cursor-pointer text-sm flex items-center gap-3 transition-colors"
@@ -259,28 +259,28 @@ export default function ParticipantForm() {
 
         <div className="flex gap-3">
           {step > 1 && (
-            <button 
+            <button
               onClick={() => triggerFlip(step - 1)}
               disabled={isSubmitting}
               className="w-1/4 bg-white border border-brand-surface-container hover:bg-gray-50 text-brand-on-surface font-bold py-3.5 rounded-lg shadow-sm transition-colors flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed"
               title="Go Back"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
             </button>
           )}
-          <button 
+          <button
             onClick={handleNext}
             disabled={isSubmitting}
             className="flex-1 bg-brand-primary hover:bg-[#8e221f] text-white font-bold py-3.5 rounded-lg shadow-md transition-colors flex justify-center items-center gap-2 uppercase tracking-wide text-sm disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? "SUBMITTING..." : step === 3 ? "SUBMIT & START QUIZ" : "CONTINUE TO KICK-OFF"}
-            {!isSubmitting && <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>}
+            {!isSubmitting && <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>}
           </button>
         </div>
         {errors.submit && <p className="text-red-500 text-xs mt-3 text-center">{errors.submit}</p>}
 
         <div className="mt-6 pt-4 border-t border-brand-surface-container flex justify-center items-center gap-2 text-xs text-brand-on-surface/60">
-          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
           Your data is secure and encrypted.
         </div>
       </div>
