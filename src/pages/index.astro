@@ -201,24 +201,72 @@ import { EVENT_NAME, EVENT_DATE, ORGANIZER_NAME } from "../data/eventConfig";
       pointLight.position.set(5, 5, 5);
       scene.add(pointLight);
 
-      // Football Geometry (Icosahedron + Wireframe to mimic stitching)
-      const geometry = new THREE.IcosahedronGeometry(1, 1);
-      const material = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
+      // 1. Generate base icosahedron vertices to identify pentagon centers
+      const baseIco = new THREE.IcosahedronGeometry(1, 0);
+      const basePos = baseIco.attributes.position;
+      const baseVertices = [];
+      for (let i = 0; i < basePos.count; i++) {
+        const v = new THREE.Vector3(basePos.getX(i), basePos.getY(i), basePos.getZ(i)).normalize();
+        let isDup = false;
+        for (let b of baseVertices) {
+          if (v.distanceTo(b) < 0.1) { isDup = true; break; }
+        }
+        if (!isDup) baseVertices.push(v);
+      }
+
+      // 2. Subdivide geometry: detail level 2 creates 9 faces per original face.
+      // toNonIndexed() un-shares vertices to allow distinct face coloring without gradients.
+      const geometry = new THREE.IcosahedronGeometry(1, 2).toNonIndexed();
+      const pos = geometry.attributes.position;
+      const colors = [];
+      const color = new THREE.Color();
+
+      // 3. Map face centroids to color: close to base vertices = black (pentagons), else white (hexagons)
+      for (let i = 0; i < pos.count; i += 3) {
+        const v1 = new THREE.Vector3(pos.getX(i), pos.getY(i), pos.getZ(i));
+        const v2 = new THREE.Vector3(pos.getX(i+1), pos.getY(i+1), pos.getZ(i+1));
+        const v3 = new THREE.Vector3(pos.getX(i+2), pos.getY(i+2), pos.getZ(i+2));
+        
+        const centroid = new THREE.Vector3().add(v1).add(v2).add(v3).divideScalar(3).normalize();
+        
+        let isBlack = false;
+        for (let j = 0; j < baseVertices.length; j++) {
+          // Distance threshold to isolate the corner triangles
+          if (centroid.distanceTo(baseVertices[j]) < 0.4) {
+            isBlack = true;
+            break;
+          }
+        }
+        
+        if (isBlack) color.setHex(0x1a1a1a);
+        else color.setHex(0xf4f4f4);
+        
+        // Apply calculated color to all 3 vertices of the current face
+        colors.push(
+          color.r, color.g, color.b,
+          color.r, color.g, color.b,
+          color.r, color.g, color.b
+        );
+      }
+
+      geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+      const material = new THREE.MeshPhongMaterial({ 
+        vertexColors: true, 
         flatShading: true,
-        shininess: 100,
+        shininess: 40
       });
       const football = new THREE.Mesh(geometry, material);
 
-      // Black patches using wireframe or secondary geometry
-      const patchGeometry = new THREE.IcosahedronGeometry(1.01, 1);
-      const patchMaterial = new THREE.MeshPhongMaterial({
-        color: 0x222222,
+      // Optional: Subtle wireframe to accentuate the structural seams
+      const seamMaterial = new THREE.MeshBasicMaterial({
+        color: 0x888888,
         wireframe: true,
-        wireframeLinewidth: 2,
+        transparent: true,
+        opacity: 0.15
       });
-      const patches = new THREE.Mesh(patchGeometry, patchMaterial);
-      football.add(patches);
+      const seams = new THREE.Mesh(geometry, seamMaterial);
+      football.add(seams);
 
       scene.add(football);
 
