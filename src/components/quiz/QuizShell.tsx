@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { QUESTIONS, type Question } from '../../data/questions';
 import { EVENT_NAME, QUESTION_TIMER_SECONDS, TOTAL_QUESTIONS_PER_QUIZ } from '../../data/eventConfig';
-import { 
-  getParticipant, 
-  saveResult, 
-  clearSession, 
+import {
+  getParticipant,
+  saveResult,
+  clearSession,
   type AnsweredQuestion,
   type QuizResultData
 } from '../../utils/sessionState';
@@ -22,12 +22,12 @@ export default function QuizShell() {
   const [isInitializing, setIsInitializing] = useState(true);
   const [showInstructions, setShowInstructions] = useState(false);
   const [showCheatWarning, setShowCheatWarning] = useState(false);
-  
+
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<AnsweredQuestion[]>([]);
   const [currentSelection, setCurrentSelection] = useState<number | null>(null);
-  
+
   const [secondsLeft, setSecondsLeft] = useState(QUESTION_TIMER_SECONDS);
   const [isQuizActive, setIsQuizActive] = useState(false);
   const [isSubmittingScore, setIsSubmittingScore] = useState(false);
@@ -36,7 +36,7 @@ export default function QuizShell() {
   const isQuizActiveRef = useRef(false);
   const violationCountRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  
+
   const currentSelectionRef = useRef(currentSelection);
   const currentIndexRef = useRef(currentIndex);
   const questionsRef = useRef(questions);
@@ -183,7 +183,7 @@ export default function QuizShell() {
     const idx = currentIndexRef.current;
     // Treat the current unsubmitted selection as submitted if it exists, otherwise skipped
     recordAnswer(currentSelectionRef.current, idx);
-    
+
     if (idx < questionsRef.current.length - 1) {
       setCurrentIndex(prev => prev + 1);
       setCurrentSelection(null);
@@ -200,12 +200,12 @@ export default function QuizShell() {
     // Use current state for calculations if not from timeout, 
     // but if from timeout we might have just appended the last answer in handleTimeUp.
     // Wait for state to settle, or calculate directly using the accumulated list + current selection.
-    
+
     // Calculate safely using the callback approach to ensure we have the absolute final answers array
     setAnswers(finalAnswers => {
       let score = 0;
       let skippedCount = 0;
-      
+
       finalAnswers.forEach(ans => {
         if (ans.selectedIndex === null) {
           skippedCount++;
@@ -237,12 +237,12 @@ export default function QuizShell() {
         const participant = getParticipant();
         if (participant) {
           const hasAlreadySubmittedScore = typeof sessionStorage !== 'undefined' && sessionStorage.getItem("score_submitted") === "true";
-          
+
           if (!hasAlreadySubmittedScore) {
             if (typeof sessionStorage !== 'undefined') {
               sessionStorage.setItem("score_submitted", "true");
             }
-            
+
             // Show loader
             setIsSubmittingScore(true);
 
@@ -298,7 +298,7 @@ export default function QuizShell() {
       {isQuizActive && currentQuestion && (
         <main className="flex-grow flex flex-col px-4 py-6 md:px-8 max-w-lg mx-auto w-full relative z-0">
           <ProgressBar current={currentIndex + 1} total={questions.length} />
-          
+
           <QuestionCard
             question={currentQuestion}
             selectedIndex={currentSelection}

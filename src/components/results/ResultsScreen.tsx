@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getParticipant, getResult, clearSession } from '../../utils/sessionState';
 import { generateCertificateBlob, downloadBlob } from '../../utils/certificate';
 import { shareResult } from '../../utils/share';
+import { TEAMS } from '../../data/registrationData';
 
 export default function ResultsScreen() {
   const [isInitializing, setIsInitializing] = useState(true);
@@ -68,11 +69,25 @@ export default function ResultsScreen() {
   return (
     <div className="min-h-screen bg-brand-surface-container flex flex-col font-sans">
       {/* Top Bar */}
-      <header className="bg-white py-4 px-6 flex items-center justify-center gap-3 border-b border-brand-primary/10 shadow-sm relative z-20">
-        <img src="/images/title-logo.png" alt="Logo" className="h-8 w-auto object-contain" />
-        <h1 className="font-heading font-black text-brand-primary text-xl tracking-wider uppercase">
-          STUDENTS INDIA
-        </h1>
+      <header className="bg-white py-4 px-6 flex items-center justify-center border-b border-brand-primary/10 shadow-sm relative z-20">
+        <button 
+          onClick={() => window.location.href = '/'} 
+          className="absolute left-4 md:left-8 w-10 h-10 flex items-center justify-center bg-gray-50 text-brand-on-surface/50 hover:bg-brand-primary/10 hover:text-brand-primary rounded-full transition-all duration-300 shadow-sm border border-gray-100"
+          title="Go Home"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </button>
+        <div className="flex items-center gap-2 md:gap-3 justify-center w-full max-w-lg mx-auto">
+          <img src="/images/title-logo.png" alt="Logo" className="h-6 md:h-8 w-auto object-contain" />
+          <h1 className="font-heading font-black text-brand-primary text-base md:text-xl tracking-wider uppercase">
+            STUDENTS INDIA
+          </h1>
+        </div>
+        {participant?.team && (
+          <div className="absolute right-4 md:right-8 text-2xl drop-shadow-sm pointer-events-none" title={participant.team}>
+            {TEAMS.find(t => t.name === participant.team)?.emoji}
+          </div>
+        )}
       </header>
 
       <main className="flex-grow flex flex-col items-center px-4 py-8 md:py-12 max-w-lg mx-auto w-full">

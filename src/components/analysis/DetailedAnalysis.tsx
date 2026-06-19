@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { QUESTIONS, type Question } from '../../data/questions';
-import { getResult } from '../../utils/sessionState';
+import { getResult, getParticipant } from '../../utils/sessionState';
+import { TEAMS } from '../../data/registrationData';
 
 type Tab = 'WRONG' | 'RIGHT' | 'ALL';
 
 export default function DetailedAnalysis() {
   const [isInitializing, setIsInitializing] = useState(true);
   const [result, setResult] = useState<any>(null);
+  const [participant, setParticipant] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<Tab>('ALL');
 
   useEffect(() => {
     const r = getResult();
+    const p = getParticipant();
     if (!r) {
       window.location.replace('/');
       return;
     }
     setResult(r);
+    setParticipant(p);
     setIsInitializing(false);
   }, []);
 
@@ -23,7 +27,7 @@ export default function DetailedAnalysis() {
 
   // Reconstruct the ordered list of questions as presented to the user
   const orderedQuestions: { question: Question; selectedIndex: number | null }[] = [];
-  
+
   result.shuffledQuestionIds.forEach((id: number) => {
     const q = QUESTIONS.find(q => q.id === id);
     if (q) {
@@ -48,10 +52,10 @@ export default function DetailedAnalysis() {
   return (
     <div className="min-h-screen bg-brand-surface-container flex flex-col font-sans pb-16">
       {/* Sticky Top Header */}
-      <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-brand-primary/10 py-3 px-4 flex items-center justify-between">
+      <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-brand-primary/10 py-3 px-4 flex items-center justify-center">
         <button 
           onClick={() => window.location.href = '/result'}
-          className="flex items-center justify-center text-brand-primary hover:bg-gray-50 w-10 h-10 rounded-lg transition-colors"
+          className="flex items-center justify-center text-brand-primary hover:bg-gray-50 w-10 h-10 rounded-lg transition-colors absolute left-4"
           aria-label="Back to Results"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -64,11 +68,15 @@ export default function DetailedAnalysis() {
           </h1>
         </div>
         
-        <div className="w-10"></div> {/* Spacer for centering */}
+        {participant?.team && (
+          <div className="absolute right-4 md:right-8 text-2xl pointer-events-none" title={participant.team}>
+            {TEAMS.find(t => t.name === participant.team)?.emoji}
+          </div>
+        )}
       </header>
 
       <main className="flex-grow w-full max-w-xl mx-auto px-4 py-6">
-        
+
         {/* Tabs */}
         <div className="flex bg-white rounded-xl shadow-sm border border-brand-surface-container p-1.5 mb-6">
           <button
@@ -124,18 +132,18 @@ export default function DetailedAnalysis() {
                     )}
                     {!isSkipped && isCorrectlyAnswered && (
                       <span className="text-[10px] font-bold tracking-wider text-green-700 bg-green-100 px-2 py-1 rounded-md uppercase flex items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
                         Correct
                       </span>
                     )}
                     {!isSkipped && !isCorrectlyAnswered && (
                       <span className="text-[10px] font-bold tracking-wider text-red-600 bg-red-100 px-2 py-1 rounded-md uppercase flex items-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                         Incorrect
                       </span>
                     )}
                   </div>
-                  
+
                   <h3 className="font-bold text-gray-900 text-lg md:text-xl leading-snug mb-5">
                     {q.text}
                   </h3>
@@ -155,12 +163,12 @@ export default function DetailedAnalysis() {
                         bgClass = "bg-green-50";
                         borderClass = "border-green-300";
                         textClass = "text-green-800 font-bold";
-                        icon = <svg className="text-green-600 ml-auto" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
+                        icon = <svg className="text-green-600 ml-auto" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>;
                       } else if (isSelected && !isCorrectOpt) {
                         bgClass = "bg-red-50";
                         borderClass = "border-red-300";
                         textClass = "text-red-700 font-bold";
-                        icon = <svg className="text-red-600 ml-auto" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
+                        icon = <svg className="text-red-600 ml-auto" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>;
                       }
 
                       return (
@@ -177,11 +185,11 @@ export default function DetailedAnalysis() {
           )}
         </div>
 
-        <button 
+        <button
           onClick={() => window.location.href = '/result'}
           className="w-full mt-8 bg-brand-primary hover:bg-[#8e221f] text-white font-bold py-4 rounded-xl shadow-md transition-colors flex justify-center items-center gap-2 uppercase tracking-wide text-sm"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
           BACK TO RESULTS
         </button>
 
